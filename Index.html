@@ -1,0 +1,973 @@
+
+<h2 class="sr-only">Data Career Self-Evaluation — A 3-level assessment for aspiring Data Analysts and Data Scientists</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.wrap { padding: 1.5rem 0; }
+
+.hero { text-align: center; padding: 2rem 1rem 1.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 2rem; }
+.hero-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; background: #E1F5EE; color: #0F6E56; margin-bottom: 1rem; }
+.hero h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+.hero p { font-size: 14px; color: var(--color-text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+
+.level-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; padding: 0 0.25rem; }
+.level-tab { flex: 1; padding: 10px 8px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); cursor: pointer; text-align: center; background: var(--color-background-primary); transition: all 0.15s; }
+.level-tab:hover { border-color: var(--color-border-secondary); background: var(--color-background-secondary); }
+.level-tab.active { border-color: #1D9E75; background: #E1F5EE; }
+.level-tab .tab-icon { font-size: 18px; display: block; margin-bottom: 4px; color: var(--color-text-secondary); }
+.level-tab.active .tab-icon { color: #0F6E56; }
+.level-tab .tab-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.level-tab .tab-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.level-tab.locked { opacity: 0.45; cursor: not-allowed; }
+
+.level-intro { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.5rem; border-left: 3px solid #1D9E75; }
+.level-intro h2 { font-size: 16px; font-weight: 500; margin-bottom: 6px; color: var(--color-text-primary); }
+.level-intro p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.level-intro .meta { display: flex; gap: 1.5rem; margin-top: 10px; }
+.level-intro .meta span { font-size: 12px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 4px; }
+
+.section-header { display: flex; align-items: center; gap: 8px; margin: 1.5rem 0 0.75rem; }
+.section-num { width: 24px; height: 24px; border-radius: 50%; background: #1D9E75; color: white; font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.section-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); margin-left: auto; }
+
+.q-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 10px; }
+.q-card:hover { border-color: var(--color-border-secondary); }
+.q-num { font-size: 11px; color: var(--color-text-tertiary); font-weight: 500; margin-bottom: 6px; }
+.q-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.55; margin-bottom: 10px; }
+.q-note { font-size: 12px; color: var(--color-text-secondary); font-style: italic; margin-bottom: 8px; background: #FAEEDA; padding: 6px 10px; border-radius: 6px; color: #633806; }
+.q-options { display: flex; flex-direction: column; gap: 6px; }
+.q-opt { display: flex; align-items: flex-start; gap: 8px; padding: 7px 10px; border: 0.5px solid var(--color-border-tertiary); border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--color-text-primary); transition: all 0.12s; background: var(--color-background-primary); }
+.q-opt:hover { background: var(--color-background-secondary); border-color: var(--color-border-secondary); }
+.q-opt.selected { background: #E1F5EE; border-color: #1D9E75; color: #085041; }
+.q-opt.wrong { background: #FCEBEB; border-color: #E24B4A; color: #501313; }
+.q-opt input[type=radio] { margin-top: 2px; accent-color: #1D9E75; flex-shrink: 0; }
+
+.task-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 10px; }
+.task-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.task-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.task-tag { font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+.task-tag.do { background: #E6F1FB; color: #185FA5; }
+.task-tag.think { background: #EEEDFE; color: #3C3489; }
+.task-tag.submit { background: #EAF3DE; color: #3B6D11; }
+.task-body { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.task-body strong { color: var(--color-text-primary); font-weight: 500; }
+.task-check { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 0.5px solid var(--color-border-tertiary); }
+.task-check label { font-size: 12px; color: var(--color-text-secondary); }
+.task-check input { accent-color: #1D9E75; }
+
+.scenario-box { background: #F1EFE8; border-radius: var(--border-radius-md); padding: 1rem 1.25rem; margin-bottom: 10px; border-left: 3px solid #888780; }
+.scenario-box .s-label { font-size: 11px; font-weight: 500; color: #5F5E5A; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.scenario-box p { font-size: 13px; color: #444441; line-height: 1.65; }
+
+.answer-area { width: 100%; border: 0.5px solid var(--color-border-tertiary); border-radius: 6px; padding: 8px 10px; font-size: 13px; font-family: var(--font-sans); color: var(--color-text-primary); background: var(--color-background-primary); resize: vertical; min-height: 70px; margin-top: 8px; }
+.answer-area:focus { outline: none; border-color: #1D9E75; }
+
+.submit-row { margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid var(--color-border-tertiary); }
+.submit-btn { width: 100%; padding: 12px; background: #1D9E75; color: white; border: none; border-radius: var(--border-radius-md); font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: var(--font-sans); }
+.submit-btn:hover { background: #0F6E56; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.result-panel { display: none; background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-top: 1.5rem; border: 0.5px solid var(--color-border-tertiary); }
+.result-panel.show { display: block; }
+.result-score { text-align: center; margin-bottom: 1.5rem; }
+.result-score .big-num { font-size: 52px; font-weight: 500; line-height: 1; }
+.result-score .big-num.pass { color: #1D9E75; }
+.result-score .big-num.fail { color: #E24B4A; }
+.result-score .score-label { font-size: 14px; color: var(--color-text-secondary); margin-top: 4px; }
+.result-verdict { text-align: center; padding: 1rem; border-radius: var(--border-radius-md); margin-bottom: 1rem; }
+.result-verdict.pass { background: #E1F5EE; }
+.result-verdict.fail { background: #FCEBEB; }
+.result-verdict h3 { font-size: 16px; font-weight: 500; }
+.result-verdict.pass h3 { color: #085041; }
+.result-verdict.fail h3 { color: #791F1F; }
+.result-verdict p { font-size: 13px; margin-top: 4px; line-height: 1.5; }
+.result-verdict.pass p { color: #0F6E56; }
+.result-verdict.fail p { color: #A32D2D; }
+.result-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-bottom: 1rem; }
+.rb-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px; text-align: center; }
+.rb-card .rb-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.rb-card .rb-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.next-level-btn { width: 100%; padding: 12px; background: var(--color-background-primary); color: #1D9E75; border: 1.5px solid #1D9E75; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; font-family: var(--font-sans); margin-top: 8px; display: none; }
+.next-level-btn:hover { background: #E1F5EE; }
+.next-level-btn.show { display: block; }
+
+.progress-bar { height: 4px; background: var(--color-background-secondary); border-radius: 2px; margin-bottom: 1.5rem; overflow: hidden; }
+.progress-fill { height: 100%; background: #1D9E75; border-radius: 2px; transition: width 0.3s; }
+
+.honor-box { background: #EEEDFE; border-radius: var(--border-radius-md); padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; gap: 10px; align-items: flex-start; }
+.honor-box i { color: #534AB7; font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.honor-box p { font-size: 12px; color: #3C3489; line-height: 1.5; }
+.honor-box strong { color: #26215C; }
+
+.hidden { display: none; }
+</style>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-badge">Career Evaluation Tool</div>
+    <h1>Is Data Analytics / Data Science right for you?</h1>
+    <p>A 3-level self-evaluation designed for beginners with no technical background. Take each level honestly — the goal is self-discovery, not a score.</p>
+  </div>
+
+  <div class="honor-box">
+    <i class="ti ti-shield-check" aria-hidden="true"></i>
+    <p><strong>Honour system:</strong> Do not Google answers. Do not ask anyone. If you are stuck, sit with the problem — the struggle itself is part of the test. Time taken and approach matter more than being right.</p>
+  </div>
+
+  <div class="level-tabs">
+    <div class="level-tab active" id="tab-0" onclick="showLevel(0)">
+      <i class="ti ti-seedling tab-icon" aria-hidden="true"></i>
+      <div class="tab-label">Level 1</div>
+      <div class="tab-sub">Beginner</div>
+    </div>
+    <div class="level-tab locked" id="tab-1">
+      <i class="ti ti-plant tab-icon" aria-hidden="true"></i>
+      <div class="tab-label">Level 2</div>
+      <div class="tab-sub">Intermediate</div>
+    </div>
+    <div class="level-tab locked" id="tab-2">
+      <i class="ti ti-tree tab-icon" aria-hidden="true"></i>
+      <div class="tab-label">Level 3</div>
+      <div class="tab-sub">Advanced</div>
+    </div>
+  </div>
+
+  <!-- LEVEL 1 -->
+  <div id="level-0">
+    <div class="level-intro">
+      <h2>Level 1 — Beginner: Setup, Observation & Basic Thinking</h2>
+      <p>You will install software, perform basic computer tasks, answer scenario questions, and solve simple math. No prior knowledge required — but you will need patience and the ability to follow instructions carefully.</p>
+      <div class="meta">
+        <span><i class="ti ti-clock" aria-hidden="true"></i> 1–2 days</span>
+        <span><i class="ti ti-check" aria-hidden="true"></i> Pass: 70%</span>
+        <span><i class="ti ti-file-text" aria-hidden="true"></i> MCQ + Tasks</span>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-0" style="width:0%"></div></div>
+
+    <!-- Section A -->
+    <div class="section-header">
+      <div class="section-num">A</div>
+      <div class="section-title">Software Installation & Setup</div>
+      <div class="section-badge">Tasks — Do & Report</div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">A1. Install PostgreSQL on your computer</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Go to <strong>postgresql.org</strong> → download the installer for your operating system (Windows/Mac/Linux). Install it with default settings. During setup, you will be asked to set a password for the default user (<em>postgres</em>). Write that password somewhere safe.<br><br>
+        After installation, open <strong>pgAdmin</strong> (it installs along with PostgreSQL). If you can see the pgAdmin dashboard, you have succeeded.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="a1" onchange="updateProgress(0)">
+        <label for="a1">I completed this task and pgAdmin opened successfully</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">A2. Install Power BI Desktop</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Go to <strong>microsoft.com/en-us/power-platform/products/power-bi/downloads</strong> and download <em>Power BI Desktop</em> (it is free). Install it. Open the application and note what you see on the first screen.<br><br>
+        <strong>If you use a Mac:</strong> Power BI Desktop is only available on Windows. Install it on a Windows machine or use a free virtual machine (search: "how to run Power BI on Mac using VirtualBox" — read 3 articles and summarize the options below).
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="a2" onchange="updateProgress(0)">
+        <label for="a2">I installed Power BI Desktop and opened it successfully</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">A3. Basic OS tasks</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Complete all of the following on your computer:<br><br>
+        <strong>(a)</strong> Create a folder called <em>DataCareer_Evaluation</em> on your Desktop<br>
+        <strong>(b)</strong> Inside it, create 3 sub-folders: <em>Level1</em>, <em>Level2</em>, <em>Level3</em><br>
+        <strong>(c)</strong> Open Notepad (Windows) or TextEdit (Mac), type your name and today's date, and save it as <em>my_notes.txt</em> inside the Level1 folder<br>
+        <strong>(d)</strong> Take a screenshot of your folder structure and save it in Level1<br>
+        <strong>(e)</strong> Find out: <em>How much free storage space does your computer have?</em> Write the answer in my_notes.txt
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="a3" onchange="updateProgress(0)">
+        <label for="a3">I completed all OS tasks (a) through (e)</label>
+      </div>
+    </div>
+
+    <!-- Section B -->
+    <div class="section-header">
+      <div class="section-num">B</div>
+      <div class="section-title">Microsoft Excel — Basic Data Familiarity</div>
+      <div class="section-badge">Tasks + MCQ</div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">B1. Excel basics with a sample dataset</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Open Excel (or Google Sheets if you don't have Excel). Create a new spreadsheet and manually enter this data exactly as shown:<br><br>
+        <strong>Employee | Department | Monthly Salary | Years Worked</strong><br>
+        Ravi Kumar | Sales | 35000 | 3<br>
+        Priya Nair | HR | 28000 | 5<br>
+        Arjun Shah | IT | 52000 | 2<br>
+        Meena Rao | Sales | 41000 | 7<br>
+        Dev Patel | Finance | 38000 | 4<br><br>
+        Now answer:<br>
+        <strong>(a)</strong> Use a formula to find the total salary bill (SUM)<br>
+        <strong>(b)</strong> Use a formula to find the average salary (AVERAGE)<br>
+        <strong>(c)</strong> Who earns the highest salary? (you can use MAX or just look)<br>
+        <strong>(d)</strong> Sort the data by Monthly Salary — highest to lowest. Take a screenshot.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="b1" onchange="updateProgress(0)">
+        <label for="b1">I completed the Excel task and saved my file in the Level1 folder</label>
+      </div>
+    </div>
+
+    <!-- MCQ Section B -->
+    <div class="q-card" data-section="B" data-correct="b">
+      <div class="q-num">B2 — Multiple Choice</div>
+      <div class="q-text">In Excel, if cell A1 contains the number 100 and cell B1 contains 25, what does the formula <code>=A1*B1/100</code> calculate?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_b2" value="a"> The sum of A1 and B1</label>
+        <label class="q-opt"><input type="radio" name="q_b2" value="b"> 25% of 100, which equals 25</label>
+        <label class="q-opt"><input type="radio" name="q_b2" value="c"> 100 divided by 25</label>
+        <label class="q-opt"><input type="radio" name="q_b2" value="d"> It will show an error</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="B" data-correct="c">
+      <div class="q-num">B3 — Multiple Choice</div>
+      <div class="q-text">You have a list of 500 sales records in Excel. You want to quickly see total sales per city. Which Excel feature would be most useful?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_b3" value="a"> Copy and paste each row manually</label>
+        <label class="q-opt"><input type="radio" name="q_b3" value="b"> Delete duplicate rows</label>
+        <label class="q-opt"><input type="radio" name="q_b3" value="c"> Pivot Table</label>
+        <label class="q-opt"><input type="radio" name="q_b3" value="d"> Change the font size</label>
+      </div>
+    </div>
+
+    <!-- Section C -->
+    <div class="section-header">
+      <div class="section-num">C</div>
+      <div class="section-title">Business Scenario Understanding</div>
+      <div class="section-badge">Read & Think</div>
+    </div>
+
+    <div class="scenario-box">
+      <div class="s-label">Scenario — Read carefully</div>
+      <p>A small grocery store in Hyderabad has been running for 2 years. The owner notices that at the end of every month, some products are left unsold and he has to throw them away because they expire. This wastes money. He also notices that on weekends, certain items run out of stock and customers leave disappointed. He has asked you to help him "use data" to fix these problems. He has sales receipts from the past 12 months stored in paper form.</p>
+    </div>
+
+    <div class="q-card" data-section="C" data-correct="b">
+      <div class="q-num">C1 — Multiple Choice</div>
+      <div class="q-text">Before doing any analysis, what is the very first thing that needs to happen?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_c1" value="a"> Buy expensive software immediately</label>
+        <label class="q-opt"><input type="radio" name="q_c1" value="b"> Convert the paper receipts into a digital format (Excel or database)</label>
+        <label class="q-opt"><input type="radio" name="q_c1" value="c"> Hire 5 data scientists</label>
+        <label class="q-opt"><input type="radio" name="q_c1" value="d"> Create a website for the store</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="C" data-correct="c">
+      <div class="q-num">C2 — Multiple Choice</div>
+      <div class="q-text">The owner says "milk and bread always sell out on Saturdays and Sundays." This is an example of:</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_c2" value="a"> A data entry error</label>
+        <label class="q-opt"><input type="radio" name="q_c2" value="b"> A financial problem only accountants can solve</label>
+        <label class="q-opt"><input type="radio" name="q_c2" value="c"> A pattern in data — demand is higher on certain days</label>
+        <label class="q-opt"><input type="radio" name="q_c2" value="d"> Not related to data at all</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="C" data-correct="a">
+      <div class="q-num">C3 — Thinking Question</div>
+      <div class="q-text">If you had 12 months of daily sales data for this grocery store, which of the following would give the owner the most useful insight to reduce waste?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_c3" value="a"> Identify which items sell the least in which months, and reduce their stock before those months</label>
+        <label class="q-opt"><input type="radio" name="q_c3" value="b"> Change the color of the store's walls</label>
+        <label class="q-opt"><input type="radio" name="q_c3" value="c"> Remove all products that have ever been unsold even once</label>
+        <label class="q-opt"><input type="radio" name="q_c3" value="d"> Ask a different store owner what they do</label>
+      </div>
+    </div>
+
+    <!-- Section D: Math -->
+    <div class="section-header">
+      <div class="section-num">D</div>
+      <div class="section-title">Basic Math & Number Sense</div>
+      <div class="section-badge">No calculator for first attempt</div>
+    </div>
+
+    <div class="q-card" data-section="D" data-correct="b">
+      <div class="q-num">D1</div>
+      <div class="q-text">A shop had sales of ₹80,000 in January and ₹1,00,000 in February. What is the percentage increase from January to February?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_d1" value="a"> 20%</label>
+        <label class="q-opt"><input type="radio" name="q_d1" value="b"> 25%</label>
+        <label class="q-opt"><input type="radio" name="q_d1" value="c"> 30%</label>
+        <label class="q-opt"><input type="radio" name="q_d1" value="d"> 10%</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="D" data-correct="c">
+      <div class="q-num">D2</div>
+      <div class="q-text">Out of 200 customers, 50 bought only vegetables, 80 bought only groceries, and 70 bought both. What percentage of customers bought groceries (either only groceries or both)?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_d2" value="a"> 40%</label>
+        <label class="q-opt"><input type="radio" name="q_d2" value="b"> 35%</label>
+        <label class="q-opt"><input type="radio" name="q_d2" value="c"> 75%</label>
+        <label class="q-opt"><input type="radio" name="q_d2" value="d"> 60%</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="D" data-correct="a">
+      <div class="q-num">D3</div>
+      <div class="q-text">A data analyst earns ₹45,000 per month. After a 20% hike, what is the new monthly salary?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_d3" value="a"> ₹54,000</label>
+        <label class="q-opt"><input type="radio" name="q_d3" value="b"> ₹49,000</label>
+        <label class="q-opt"><input type="radio" name="q_d3" value="c"> ₹50,000</label>
+        <label class="q-opt"><input type="radio" name="q_d3" value="d"> ₹56,000</label>
+      </div>
+    </div>
+
+    <!-- Section E: Attitude -->
+    <div class="section-header">
+      <div class="section-num">E</div>
+      <div class="section-title">Patience & Problem-Solving Attitude</div>
+      <div class="section-badge">Honest self-reflection</div>
+    </div>
+
+    <div class="q-card" data-section="E" data-correct="b">
+      <div class="q-num">E1</div>
+      <div class="q-text">While installing PostgreSQL, the installer shows a confusing error message you have never seen before. What do you do first?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_e1" value="a"> Give up and decide data analytics is not for you</label>
+        <label class="q-opt"><input type="radio" name="q_e1" value="b"> Read the exact error message carefully, try to understand what it says, then search for it</label>
+        <label class="q-opt"><input type="radio" name="q_e1" value="c"> Call a friend who knows computers and ask them to fix it</label>
+        <label class="q-opt"><input type="radio" name="q_e1" value="d"> Restart the computer and hope it works</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="E" data-correct="c">
+      <div class="q-num">E2</div>
+      <div class="q-text">You have been stuck on a problem for 45 minutes and you still don't understand it. What is the best approach?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_e2" value="a"> Ask for the answer immediately — time is money</label>
+        <label class="q-opt"><input type="radio" name="q_e2" value="b"> Take a 5-minute break, come back and re-read the problem from the beginning</label>
+        <label class="q-opt"><input type="radio" name="q_e2" value="c"> Both B and also try to break the problem into smaller parts</label>
+        <label class="q-opt"><input type="radio" name="q_e2" value="d"> Skip it — if it takes this long it's probably too hard</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">E3. Reflection task — Write in your own words</div><div class="task-tag think">Written Task</div></div>
+      <div class="task-body">In your <em>my_notes.txt</em> file, write 5–8 sentences answering: <strong>"What do I think a Data Analyst does every day? What problems do they solve?"</strong> Do not search the internet. Write purely from your own current understanding. There is no right or wrong — this is to measure your starting point.</div>
+      <div class="task-check">
+        <input type="checkbox" id="e3" onchange="updateProgress(0)">
+        <label for="e3">I wrote my reflection honestly without searching online</label>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button class="submit-btn" onclick="submitLevel(0)">Submit Level 1 — See my score</button>
+    </div>
+
+    <div class="result-panel" id="result-0">
+      <div class="result-score">
+        <div class="big-num" id="score-num-0">0%</div>
+        <div class="score-label">MCQ Score (tasks are self-assessed)</div>
+      </div>
+      <div class="result-verdict" id="verdict-0">
+        <h3 id="verdict-title-0">—</h3>
+        <p id="verdict-text-0">—</p>
+      </div>
+      <div class="result-breakdown">
+        <div class="rb-card"><div class="rb-val" id="rb-sec-0">—</div><div class="rb-label">Setup Tasks</div></div>
+        <div class="rb-card"><div class="rb-val" id="rb-excel-0">—</div><div class="rb-label">Excel</div></div>
+        <div class="rb-card"><div class="rb-val" id="rb-biz-0">—</div><div class="rb-label">Business Sense</div></div>
+        <div class="rb-card"><div class="rb-val" id="rb-math-0">—</div><div class="rb-label">Math</div></div>
+      </div>
+      <div id="feedback-0" style="font-size:13px; color: var(--color-text-secondary); line-height:1.6; margin-bottom: 1rem;"></div>
+      <button class="next-level-btn" id="next-0" onclick="unlockLevel(1)">Unlock Level 2 — Intermediate ↗</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div id="level-1" class="hidden">
+    <div class="level-intro">
+      <h2>Level 2 — Intermediate: Data Interpretation, SQL Concepts & Problem Framing</h2>
+      <p>You will work with data tables, understand SQL logic without writing code yet, frame business problems, and work through an analytical mini-project. This level tests structured thinking.</p>
+      <div class="meta">
+        <span><i class="ti ti-clock" aria-hidden="true"></i> 1–2 days</span>
+        <span><i class="ti ti-check" aria-hidden="true"></i> Pass: 70%</span>
+        <span><i class="ti ti-chart-bar" aria-hidden="true"></i> Scenario-heavy</span>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-1" style="width:0%"></div></div>
+
+    <!-- Section F -->
+    <div class="section-header">
+      <div class="section-num">F</div>
+      <div class="section-title">Reading and Interpreting Data Tables</div>
+      <div class="section-badge">Comprehension</div>
+    </div>
+
+    <div class="scenario-box">
+      <div class="s-label">Data Table — Sales data for a clothing brand (January)</div>
+      <p><strong>Product | City | Units Sold | Price/Unit (₹) | Returns</strong><br>
+      T-Shirt | Hyderabad | 120 | 499 | 8<br>
+      Jeans | Mumbai | 85 | 1299 | 12<br>
+      Kurti | Hyderabad | 200 | 799 | 5<br>
+      T-Shirt | Delhi | 95 | 499 | 3<br>
+      Jeans | Hyderabad | 60 | 1299 | 7<br>
+      Kurti | Mumbai | 140 | 799 | 20</p>
+    </div>
+
+    <div class="q-card" data-section="F" data-correct="c">
+      <div class="q-num">F1</div>
+      <div class="q-text">What is the total revenue from Hyderabad in January? (Revenue = Units Sold × Price/Unit, for all Hyderabad rows)</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_f1" value="a"> ₹2,37,480</label>
+        <label class="q-opt"><input type="radio" name="q_f1" value="b"> ₹3,00,000</label>
+        <label class="q-opt"><input type="radio" name="q_f1" value="c"> ₹2,97,620</label>
+        <label class="q-opt"><input type="radio" name="q_f1" value="d"> ₹1,85,000</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="F" data-correct="b">
+      <div class="q-num">F2</div>
+      <div class="q-text">Which product has the highest return rate (returns ÷ units sold × 100) across all cities?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_f2" value="a"> T-Shirt</label>
+        <label class="q-opt"><input type="radio" name="q_f2" value="b"> Jeans</label>
+        <label class="q-opt"><input type="radio" name="q_f2" value="c"> Kurti</label>
+        <label class="q-opt"><input type="radio" name="q_f2" value="d"> All are equal</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="F" data-correct="a">
+      <div class="q-num">F3</div>
+      <div class="q-text">The brand manager says "Kurtis are our best product." Based only on this data, how would you respond?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_f3" value="a"> "Kurtis sell the most units, but they also have the highest absolute returns. We need to investigate return reasons before concluding they're the best."</label>
+        <label class="q-opt"><input type="radio" name="q_f3" value="b"> "Yes, totally agree."</label>
+        <label class="q-opt"><input type="radio" name="q_f3" value="c"> "Jeans are best because they cost more."</label>
+        <label class="q-opt"><input type="radio" name="q_f3" value="d"> "We need to change the product entirely."</label>
+      </div>
+    </div>
+
+    <!-- Section G: SQL Logic -->
+    <div class="section-header">
+      <div class="section-num">G</div>
+      <div class="section-title">SQL Thinking (No coding — logic only)</div>
+      <div class="section-badge">Conceptual</div>
+    </div>
+
+    <div class="q-card" data-section="G" data-correct="b">
+      <div class="q-num">G1</div>
+      <div class="q-text">In a database, a "table" is most similar to which everyday object?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_g1" value="a"> A photograph</label>
+        <label class="q-opt"><input type="radio" name="q_g1" value="b"> A spreadsheet with rows and columns</label>
+        <label class="q-opt"><input type="radio" name="q_g1" value="c"> A USB drive</label>
+        <label class="q-opt"><input type="radio" name="q_g1" value="d"> An email</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="G" data-correct="c">
+      <div class="q-num">G2</div>
+      <div class="q-text">You want to find all customers from Hyderabad who spent more than ₹5,000. In plain English, which SQL keyword would be most relevant?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_g2" value="a"> DELETE</label>
+        <label class="q-opt"><input type="radio" name="q_g2" value="b"> UPDATE</label>
+        <label class="q-opt"><input type="radio" name="q_g2" value="c"> WHERE (to filter by conditions)</label>
+        <label class="q-opt"><input type="radio" name="q_g2" value="d"> CREATE TABLE</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="G" data-correct="d">
+      <div class="q-num">G3</div>
+      <div class="q-text">A company has two tables: one for <em>Orders</em> and one for <em>Customers</em>. You want to see each order along with the customer's name. What concept connects these tables?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_g3" value="a"> Sorting</label>
+        <label class="q-opt"><input type="radio" name="q_g3" value="b"> Formatting</label>
+        <label class="q-opt"><input type="radio" name="q_g3" value="c"> Filtering</label>
+        <label class="q-opt"><input type="radio" name="q_g3" value="d"> Joining tables using a common field (like Customer ID)</label>
+      </div>
+    </div>
+
+    <!-- Section H: Business Problem Framing -->
+    <div class="section-header">
+      <div class="section-num">H</div>
+      <div class="section-title">Business Problem Framing</div>
+      <div class="section-badge">Critical Thinking</div>
+    </div>
+
+    <div class="scenario-box">
+      <div class="s-label">New Scenario — E-commerce company</div>
+      <p>An online fashion retailer has noticed that their website traffic increased by 40% this quarter, but their sales only grew by 5%. The CEO wants to know "why are people visiting but not buying?" You are brought in as a data analyst to investigate.</p>
+    </div>
+
+    <div class="q-card" data-section="H" data-correct="b">
+      <div class="q-num">H1</div>
+      <div class="q-text">What is the correct term for the percentage of visitors who actually make a purchase?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_h1" value="a"> Bounce rate</label>
+        <label class="q-opt"><input type="radio" name="q_h1" value="b"> Conversion rate</label>
+        <label class="q-opt"><input type="radio" name="q_h1" value="c"> Click-through rate</label>
+        <label class="q-opt"><input type="radio" name="q_h1" value="d"> Churn rate</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="H" data-correct="c">
+      <div class="q-num">H2</div>
+      <div class="q-text">To find out WHY people are leaving without buying, which data source would be most useful first?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_h2" value="a"> The CEO's personal opinion</label>
+        <label class="q-opt"><input type="radio" name="q_h2" value="b"> The number of employees in the company</label>
+        <label class="q-opt"><input type="radio" name="q_h2" value="c"> Website behavior data — which pages they visited, where they dropped off, and how long they spent</label>
+        <label class="q-opt"><input type="radio" name="q_h2" value="d"> The company's social media follower count</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">H3. Power BI Exploration task</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Open Power BI Desktop. On the home screen, go to <strong>Get Data → Excel</strong>. Open the Excel file you created in Level 1 (the employee salary data). Load the data into Power BI.<br><br>
+        Now create a simple <strong>Bar Chart</strong> showing each Employee Name on the X-axis and their Monthly Salary on the Y-axis.<br><br>
+        Save the Power BI file as <em>Level2_EmployeeChart.pbix</em> in your Level2 folder. Take a screenshot of your chart.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="h3" onchange="updateProgress(1)">
+        <label for="h3">I created the Power BI bar chart and saved the file</label>
+      </div>
+    </div>
+
+    <!-- Section I: PostgreSQL first query -->
+    <div class="section-header">
+      <div class="section-num">I</div>
+      <div class="section-title">Your First Database — PostgreSQL Setup & First Query</div>
+      <div class="section-badge">Guided Technical Task</div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">I1. Create your first database and table</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Open <strong>pgAdmin</strong>. Right-click on "Databases" → Create → Database. Name it <em>evaluation_db</em>.<br><br>
+        Open the Query Tool (Tools menu → Query Tool). Type and run this exact SQL:<br><br>
+        <code style="font-family: var(--font-mono); font-size: 12px; display: block; background: var(--color-background-secondary); padding: 8px; border-radius: 6px; margin-top: 4px; color: var(--color-text-primary);">
+        CREATE TABLE employees (<br>
+        &nbsp;&nbsp;name VARCHAR(100),<br>
+        &nbsp;&nbsp;department VARCHAR(50),<br>
+        &nbsp;&nbsp;salary INTEGER<br>
+        );<br><br>
+        INSERT INTO employees VALUES ('Ravi Kumar', 'Sales', 35000);<br>
+        INSERT INTO employees VALUES ('Priya Nair', 'HR', 28000);<br>
+        INSERT INTO employees VALUES ('Arjun Shah', 'IT', 52000);<br><br>
+        SELECT * FROM employees;
+        </code><br>
+        If you can see the 3 rows appear at the bottom, you have run your first SQL query. Take a screenshot.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="i1" onchange="updateProgress(1)">
+        <label for="i1">I ran the SQL successfully and saw the 3 rows appear</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="I" data-correct="b">
+      <div class="q-num">I2</div>
+      <div class="q-text">After running <code>SELECT * FROM employees</code>, what does the <strong>*</strong> (asterisk) mean?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_i2" value="a"> Multiply all values</label>
+        <label class="q-opt"><input type="radio" name="q_i2" value="b"> Select all columns</label>
+        <label class="q-opt"><input type="radio" name="q_i2" value="c"> Delete the table</label>
+        <label class="q-opt"><input type="radio" name="q_i2" value="d"> Count the rows</label>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button class="submit-btn" onclick="submitLevel(1)">Submit Level 2 — See my score</button>
+    </div>
+
+    <div class="result-panel" id="result-1">
+      <div class="result-score">
+        <div class="big-num" id="score-num-1">0%</div>
+        <div class="score-label">MCQ Score</div>
+      </div>
+      <div class="result-verdict" id="verdict-1">
+        <h3 id="verdict-title-1">—</h3>
+        <p id="verdict-text-1">—</p>
+      </div>
+      <div id="feedback-1" style="font-size:13px; color: var(--color-text-secondary); line-height:1.6; margin-bottom: 1rem;"></div>
+      <button class="next-level-btn" id="next-1" onclick="unlockLevel(2)">Unlock Level 3 — Advanced ↗</button>
+    </div>
+  </div>
+
+  <!-- LEVEL 3 -->
+  <div id="level-2" class="hidden">
+    <div class="level-intro">
+      <h2>Level 3 — Advanced: End-to-End Mini Project, Analytical Depth & Career Clarity</h2>
+      <p>You will complete a real mini-project, write a short analytical report, evaluate a dashboard, and honestly assess your own readiness. This level determines career suitability with clear guidance.</p>
+      <div class="meta">
+        <span><i class="ti ti-clock" aria-hidden="true"></i> 1 full day</span>
+        <span><i class="ti ti-check" aria-hidden="true"></i> Pass: 65%</span>
+        <span><i class="ti ti-file-analytics" aria-hidden="true"></i> Project-based</span>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-2" style="width:0%"></div></div>
+
+    <!-- Section J -->
+    <div class="section-header">
+      <div class="section-num">J</div>
+      <div class="section-title">Mini Analytical Project — End to End</div>
+      <div class="section-badge">2–4 hour project</div>
+    </div>
+
+    <div class="scenario-box">
+      <div class="s-label">Project Brief</div>
+      <p>A small restaurant chain with 3 branches (Hyderabad, Bangalore, Chennai) wants to understand their performance. You are given the following monthly data for the last 6 months. Your job is to analyze it and provide 3 clear recommendations.</p>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">J1. Build the dataset in Excel</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Create a new Excel file called <em>Restaurant_Analysis.xlsx</em>. Enter this data:<br><br>
+        <strong>Month | Branch | Total Orders | Revenue (₹) | Customer Complaints | Staff Count</strong><br>
+        Jan | Hyderabad | 1200 | 4,80,000 | 18 | 12<br>
+        Jan | Bangalore | 950 | 3,80,000 | 7 | 10<br>
+        Jan | Chennai | 800 | 3,20,000 | 5 | 8<br>
+        Feb | Hyderabad | 1350 | 5,40,000 | 22 | 12<br>
+        Feb | Bangalore | 1100 | 4,40,000 | 9 | 10<br>
+        Feb | Chennai | 720 | 2,88,000 | 3 | 8<br>
+        Mar | Hyderabad | 1100 | 4,40,000 | 30 | 11<br>
+        Mar | Bangalore | 1250 | 5,00,000 | 6 | 11<br>
+        Mar | Chennai | 900 | 3,60,000 | 4 | 9<br>
+        Apr | Hyderabad | 980 | 3,92,000 | 35 | 10<br>
+        Apr | Bangalore | 1300 | 5,20,000 | 5 | 11<br>
+        Apr | Chennai | 950 | 3,80,000 | 6 | 9<br>
+        May | Hyderabad | 870 | 3,48,000 | 42 | 9<br>
+        May | Bangalore | 1400 | 5,60,000 | 4 | 12<br>
+        May | Chennai | 1000 | 4,00,000 | 5 | 10<br>
+        Jun | Hyderabad | 760 | 3,04,000 | 51 | 9<br>
+        Jun | Bangalore | 1500 | 6,00,000 | 3 | 12<br>
+        Jun | Chennai | 1050 | 4,20,000 | 4 | 10<br><br>
+        Now calculate for each branch: <strong>Total 6-month Revenue, Average Monthly Orders, Average Complaints</strong>. Use Excel formulas.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="j1" onchange="updateProgress(2)">
+        <label for="j1">I entered the data and calculated the summary statistics</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="J" data-correct="b">
+      <div class="q-num">J2 — Based on the project data</div>
+      <div class="q-text">Looking at the Hyderabad branch data from January to June, what is the most concerning trend?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_j2" value="a"> Their revenue is the highest of all branches</label>
+        <label class="q-opt"><input type="radio" name="q_j2" value="b"> Orders and revenue are declining while customer complaints are rising sharply every month</label>
+        <label class="q-opt"><input type="radio" name="q_j2" value="c"> Staff count is too high</label>
+        <label class="q-opt"><input type="radio" name="q_j2" value="d"> Nothing — all branches look similar</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="J" data-correct="c">
+      <div class="q-num">J3 — Analytical reasoning</div>
+      <div class="q-text">In June, Hyderabad had 51 complaints from 760 orders. Bangalore had 3 complaints from 1500 orders. What is Hyderabad's complaint rate and what does that tell you?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_j3" value="a"> About 3% — similar to Bangalore, no issue</label>
+        <label class="q-opt"><input type="radio" name="q_j3" value="b"> About 51% — something is severely wrong</label>
+        <label class="q-opt"><input type="radio" name="q_j3" value="c"> About 6.7% — versus Bangalore's 0.2%. Hyderabad has a serious service quality problem that needs urgent attention</label>
+        <label class="q-opt"><input type="radio" name="q_j3" value="d"> Cannot calculate this from the data given</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">J4. Create a dashboard in Power BI</div><div class="task-tag do">Hands-on Task</div></div>
+      <div class="task-body">
+        Load your <em>Restaurant_Analysis.xlsx</em> into Power BI Desktop. Create a report with at least <strong>3 visuals</strong>:<br><br>
+        <strong>(a)</strong> A line chart showing Revenue by Month for each Branch (3 lines)<br>
+        <strong>(b)</strong> A bar chart showing Total Complaints by Branch<br>
+        <strong>(c)</strong> A table or card showing the best-performing branch (by revenue)<br><br>
+        Format your report so it looks presentable. Add a title. Save it as <em>Restaurant_Dashboard.pbix</em>.
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="j4" onchange="updateProgress(2)">
+        <label for="j4">I created the Power BI dashboard with all 3 visuals</label>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-header"><div class="task-title">J5. Write your analytical report</div><div class="task-tag submit">Written Deliverable</div></div>
+      <div class="task-body">
+        Open a Word document or Notepad. Write a <strong>1-page report</strong> (200–300 words) addressing:<br><br>
+        <strong>(a)</strong> Which branch is performing the best and why<br>
+        <strong>(b)</strong> Which branch needs immediate attention and what specific problem do you see in the data<br>
+        <strong>(c)</strong> Give 3 specific, data-backed recommendations to the restaurant owner<br><br>
+        Save it as <em>My_Analysis_Report.txt</em> in your Level3 folder.<br><br>
+        <em>Note: Your recommendations must reference actual numbers from the data — not vague suggestions like "improve customer service."</em>
+      </div>
+      <div class="task-check">
+        <input type="checkbox" id="j5" onchange="updateProgress(2)">
+        <label for="j5">I wrote the full analysis report with data-backed recommendations</label>
+      </div>
+    </div>
+
+    <!-- Section K -->
+    <div class="section-header">
+      <div class="section-num">K</div>
+      <div class="section-title">Advanced Analytical Thinking</div>
+      <div class="section-badge">Depth questions</div>
+    </div>
+
+    <div class="q-card" data-section="K" data-correct="b">
+      <div class="q-num">K1</div>
+      <div class="q-text">A manager says "Our sales increased by 15% this month — great news!" As a data analyst, what critical question should you ask before celebrating?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_k1" value="a"> "What was the weather like this month?"</label>
+        <label class="q-opt"><input type="radio" name="q_k1" value="b"> "Compared to what? Last month? Same month last year? And did costs also increase?"</label>
+        <label class="q-opt"><input type="radio" name="q_k1" value="c"> "Should we give everyone a bonus?"</label>
+        <label class="q-opt"><input type="radio" name="q_k1" value="d"> "Great, let's publish a press release."</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="K" data-correct="c">
+      <div class="q-num">K2</div>
+      <div class="q-text">You notice in data that "ice cream sales" and "drowning incidents" both increase during summer. A colleague concludes "ice cream causes drowning." What is wrong with this reasoning?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_k2" value="a"> Nothing — if data shows it, it must be true</label>
+        <label class="q-opt"><input type="radio" name="q_k2" value="b"> The sample size is too small</label>
+        <label class="q-opt"><input type="radio" name="q_k2" value="c"> Correlation is not causation — both are caused by a third factor (hot weather/summer), not each other</label>
+        <label class="q-opt"><input type="radio" name="q_k2" value="d"> The data should be collected again</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="K" data-correct="a">
+      <div class="q-num">K3</div>
+      <div class="q-text">A dataset of 10,000 hospital patients shows the average age is 52. But 80% of the patients are between age 20–40. What does this tell you about the data?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_k3" value="a"> A small number of very old patients are pulling the average up — the median would be more representative here</label>
+        <label class="q-opt"><input type="radio" name="q_k3" value="b"> The data is wrong and needs to be deleted</label>
+        <label class="q-opt"><input type="radio" name="q_k3" value="c"> 52 is the correct and only number to focus on</label>
+        <label class="q-opt"><input type="radio" name="q_k3" value="d"> The hospital should only admit older patients</label>
+      </div>
+    </div>
+
+    <!-- Section L: Career Readiness -->
+    <div class="section-header">
+      <div class="section-num">L</div>
+      <div class="section-title">Honest Career Readiness Self-Check</div>
+      <div class="section-badge">Final reflection</div>
+    </div>
+
+    <div class="q-card" data-section="L" data-correct="c">
+      <div class="q-num">L1</div>
+      <div class="q-text">Over the past 2–3 days doing this evaluation, how did you feel when you got stuck on a task or a question you didn't know?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_l1" value="a"> I mostly asked someone or searched immediately and moved on</label>
+        <label class="q-opt"><input type="radio" name="q_l1" value="b"> I felt frustrated and considered stopping the evaluation</label>
+        <label class="q-opt"><input type="radio" name="q_l1" value="c"> I felt challenged but tried to work through it myself before looking for help</label>
+        <label class="q-opt"><input type="radio" name="q_l1" value="d"> I skipped most of the parts I didn't know</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="L" data-correct="b">
+      <div class="q-num">L2</div>
+      <div class="q-text">How long did it take you to complete all 3 levels honestly (without skipping tasks)?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_l2" value="a"> Less than 3 hours — I rushed through everything</label>
+        <label class="q-opt"><input type="radio" name="q_l2" value="b"> 2–3 full days with genuine effort on each task</label>
+        <label class="q-opt"><input type="radio" name="q_l2" value="c"> I haven't finished all the tasks but answered the MCQs</label>
+        <label class="q-opt"><input type="radio" name="q_l2" value="d"> I'm not sure — I skipped around</label>
+      </div>
+    </div>
+
+    <div class="q-card" data-section="L" data-correct="a">
+      <div class="q-num">L3 — Final self-assessment</div>
+      <div class="q-text">After completing this evaluation, what best describes how you feel about a data career?</div>
+      <div class="q-options">
+        <label class="q-opt"><input type="radio" name="q_l3" value="a"> I found the tasks genuinely interesting, even when they were hard. I want to learn more.</label>
+        <label class="q-opt"><input type="radio" name="q_l3" value="b"> I found it okay but mostly hope someone will tell me what to do step-by-step throughout my career</label>
+        <label class="q-opt"><input type="radio" name="q_l3" value="c"> I found it mostly boring and tedious — I did it only because I heard the salary is good</label>
+        <label class="q-opt"><input type="radio" name="q_l3" value="d"> I didn't really engage with any of the tasks meaningfully</label>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button class="submit-btn" onclick="submitLevel(2)">Submit Level 3 — Get my career verdict</button>
+    </div>
+
+    <div class="result-panel" id="result-2">
+      <div class="result-score">
+        <div class="big-num" id="score-num-2">0%</div>
+        <div class="score-label">Overall MCQ Score</div>
+      </div>
+      <div class="result-verdict" id="verdict-2">
+        <h3 id="verdict-title-2">—</h3>
+        <p id="verdict-text-2">—</p>
+      </div>
+      <div id="feedback-2" style="font-size:13px; color: var(--color-text-secondary); line-height:1.6; margin-bottom: 1rem;"></div>
+      <button class="next-level-btn show" id="full-report-btn" onclick="sendPrompt('I have completed all 3 levels of the data career evaluation. Please give me a detailed career readiness report based on the evaluation structure, covering what skills I should build next if I passed, and what alternative paths to consider if data analytics is not the right fit.')">Get my full career report ↗</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const levels = [
+  {
+    mcqNames: ['q_b2','q_b3','q_c1','q_c2','q_c3','q_d1','q_d2','q_d3','q_e1','q_e2'],
+    answers: {q_b2:'b',q_b3:'c',q_c1:'b',q_c2:'c',q_c3:'a',q_d1:'b',q_d2:'c',q_d3:'a',q_e1:'b',q_e2:'c'},
+    taskIds: ['a1','a2','a3','b1','e3'],
+    passThreshold: 0.7,
+    breakdowns: {
+      'rb-sec-0': ['a1','a2','a3'],
+      'rb-excel-0': ['q_b2','q_b3','b1'],
+      'rb-biz-0': ['q_c1','q_c2','q_c3'],
+      'rb-math-0': ['q_d1','q_d2','q_d3']
+    }
+  },
+  {
+    mcqNames: ['q_f1','q_f2','q_f3','q_g1','q_g2','q_g3','q_h1','q_h2','q_i2'],
+    answers: {q_f1:'c',q_f2:'b',q_f3:'a',q_g1:'b',q_g2:'c',q_g3:'d',q_h1:'b',q_h2:'c',q_i2:'b'},
+    taskIds: ['h3','i1'],
+    passThreshold: 0.7
+  },
+  {
+    mcqNames: ['q_j2','q_j3','q_k1','q_k2','q_k3','q_l1','q_l2','q_l3'],
+    answers: {q_j2:'b',q_j3:'c',q_k1:'b',q_k2:'c',q_k3:'a',q_l1:'c',q_l2:'b',q_l3:'a'},
+    taskIds: ['j1','j4','j5'],
+    passThreshold: 0.65
+  }
+];
+
+const levelUnlocked = [true, false, false];
+
+function showLevel(n) {
+  if (!levelUnlocked[n]) return;
+  ['level-0','level-1','level-2'].forEach((id,i) => {
+    document.getElementById(id).classList.toggle('hidden', i !== n);
+  });
+  document.querySelectorAll('.level-tab').forEach((t,i) => {
+    t.classList.toggle('active', i === n);
+  });
+}
+
+function unlockLevel(n) {
+  levelUnlocked[n] = true;
+  const tab = document.getElementById('tab-' + n);
+  tab.classList.remove('locked');
+  tab.onclick = () => showLevel(n);
+  showLevel(n);
+}
+
+function updateProgress(lvl) {
+  const l = levels[lvl];
+  let answered = 0;
+  let total = l.mcqNames.length + l.taskIds.length;
+  l.mcqNames.forEach(name => {
+    if (document.querySelector(`input[name="${name}"]:checked`)) answered++;
+  });
+  l.taskIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.checked) answered++;
+  });
+  const pct = Math.round((answered / total) * 100);
+  document.getElementById('prog-' + lvl).style.width = pct + '%';
+}
+
+document.querySelectorAll('.q-opt input[type=radio]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    const name = this.name;
+    const lvl = getLevelForQuestion(name);
+    updateProgress(lvl);
+  });
+});
+
+function getLevelForQuestion(name) {
+  for (let i = 0; i < levels.length; i++) {
+    if (levels[i].mcqNames.includes(name)) return i;
+  }
+  return 0;
+}
+
+function submitLevel(lvl) {
+  const l = levels[lvl];
+  let correct = 0;
+  let total = l.mcqNames.length;
+
+  l.mcqNames.forEach(name => {
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    if (selected) {
+      const parentLabel = selected.closest('.q-opt');
+      const allOpts = document.querySelectorAll(`input[name="${name}"]`);
+      allOpts.forEach(opt => {
+        const lbl = opt.closest('.q-opt');
+        if (opt.value === l.answers[name]) lbl.classList.add('selected');
+        else if (opt.checked && opt.value !== l.answers[name]) lbl.classList.add('wrong');
+      });
+      if (selected.value === l.answers[name]) correct++;
+    }
+  });
+
+  const pct = Math.round((correct / total) * 100);
+  const pass = pct >= (l.passThreshold * 100);
+
+  const numEl = document.getElementById('score-num-' + lvl);
+  numEl.textContent = pct + '%';
+  numEl.className = 'big-num ' + (pass ? 'pass' : 'fail');
+
+  const verdictEl = document.getElementById('verdict-' + lvl);
+  const titleEl = document.getElementById('verdict-title-' + lvl);
+  const textEl = document.getElementById('verdict-text-' + lvl);
+
+  verdictEl.className = 'result-verdict ' + (pass ? 'pass' : 'fail');
+
+  const feedbacks = [
+    {
+      pass: {
+        title: 'Well done — you passed Level 1!',
+        text: 'You have shown basic number sense, logical thinking, and the patience to complete hands-on tasks. You are ready to move to Level 2. Remember: the fact that you tried honestly is already separating you from the 60% who give up early.'
+      },
+      fail: {
+        title: 'Not quite there yet — but don\'t give up',
+        text: 'You scored below 70% on the MCQs. Review the questions you got wrong carefully. Can you understand why you were wrong? If yes — retry in 2 days. Data analytics rewards persistence far more than natural talent. The key question: did you struggle and keep going, or did you stop trying?'
+      }
+    },
+    {
+      pass: {
+        title: 'Level 2 passed — strong analytical thinking shown',
+        text: 'You can interpret data tables, understand basic database concepts, and use Power BI. These are real skills data analysts use every day. Proceed to Level 3 — the hardest and most important level.'
+      },
+      fail: {
+        title: 'Level 2 needs more work',
+        text: 'Data interpretation and SQL logic are foundational. Go back through sections F, G, and H. Try to explain each answer to yourself out loud. If you genuinely engaged and still struggled — that\'s normal at this stage. Rest, re-read, and try again in 2 days.'
+      }
+    },
+    {
+      pass: {
+        title: 'Congratulations — you have genuine potential in data',
+        text: 'You have completed all 3 levels with strong performance. You showed patience, analytical thinking, and the ability to interpret real business data. The next step: pick one skill (SQL or Power BI) and build 3 real projects over the next 60 days. You are ready.'
+      },
+      fail: {
+        title: 'Data analytics may need more preparation — read this carefully',
+        text: 'Your score suggests the core thinking patterns are still developing. This is not a judgment of your intelligence — it is feedback about timing. Spend 30 days practicing: daily Excel exercises, reading 1 business case study per week, and solving basic math puzzles. Then retake this evaluation. If you found the tasks genuinely boring, that is also valuable self-knowledge — it may not be the right career path, and that is completely okay.'
+      }
+    }
+  ];
+
+  const fb = feedbacks[lvl][pass ? 'pass' : 'fail'];
+  titleEl.textContent = fb.title;
+  textEl.textContent = fb.text;
+
+  const resultPanel = document.getElementById('result-' + lvl);
+  resultPanel.classList.add('show');
+  resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  if (pass && lvl < 2) {
+    document.getElementById('next-' + lvl).classList.add('show');
+  }
+
+  document.querySelector('#level-' + lvl + ' .submit-btn').disabled = true;
+}
+</script>
